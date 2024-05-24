@@ -1,0 +1,13 @@
+name: folder
+description: Like dartz but better)
+version: 1.0.0
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  mews_pedantic: ^0.26.0
+
+dev_dependencies:
+  lints: ^2.1.0
+  test: ^1.24.0
