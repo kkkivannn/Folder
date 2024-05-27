@@ -1,30 +1,30 @@
 /// Represents a value that can be either of type [E] or of type [R].
-/// Usually [E] is assumed to be of [Error] type and [R] of [Result] type, e.g.:
+/// Usually [E] is assumed to be of [Left] type and [R] of [Right] type, e.g.:
 ///
 sealed class Folder<E, R> {
   const Folder._();
 
-  B fold<B>(B Function(E error) onError, B Function(R result) onResult);
+  B fold<B>(B Function(E error) onLeft, B Function(R result) onRight);
 
-  bool get hasError => this is Error<E, R>;
+  bool get isLeft => this is Left<E, R>;
 
-  bool get hasResult => this is Result<E, R>;
+  bool get isRight => this is Right<E, R>;
 }
 
-final class Result<E, R> extends Folder<E, R> {
-  Result(this._result) : super._();
+final class Right<L, R> extends Folder<L, R> {
+  Right(this._right) : super._();
 
-  final R _result;
+  final R _right;
 
   @override
-  B fold<B>(B Function(E error) onError, B Function(R result) onResult) => onResult(_result);
+  B fold<B>(B Function(L value) onLeft, B Function(R value) onRight) => onRight(_right);
 }
 
-final class Error<E, R> extends Folder<E, R> {
-  Error(this._error) : super._();
+final class Left<L, R> extends Folder<L, R> {
+  Left(this._left) : super._();
 
-  final E _error;
+  final L _left;
 
   @override
-  B fold<B>(B Function(E error) onError, B Function(R result) onResult) => onError(_error);
+  B fold<B>(B Function(L value) onLeft, B Function(R value) onRight) => onLeft(_left);
 }
