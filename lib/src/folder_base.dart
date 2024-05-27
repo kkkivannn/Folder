@@ -1,14 +1,14 @@
-/// Represents a value that can be either of type [E] or of type [R].
-/// Usually [E] is assumed to be of [Left] type and [R] of [Right] type, e.g.:
+/// Represents a value that can be either of type [L] or of type [R].
+/// Usually [L] is assumed to be of [Left] type and [R] of [Right] type, e.g.:
 ///
-sealed class Folder<E, R> {
+sealed class Folder<L, R> {
   const Folder._();
 
-  B fold<B>(B Function(E error) onLeft, B Function(R result) onRight);
+  B fold<B>(B Function(L value) onLeft, B Function(R value) onRight);
 
-  bool get isLeft => this is Left<E, R>;
+  bool get isLeft => this is Left<L, R>;
 
-  bool get isRight => this is Right<E, R>;
+  bool get isRight => this is Right<L, R>;
 }
 
 final class Right<L, R> extends Folder<L, R> {
