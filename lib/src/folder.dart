@@ -17,7 +17,7 @@ final class Right<L, R> extends Folder<L, R> {
   final R _right;
 
   @override
-  Future<B> fold<B>(B Function(L value) onLeft, B Function(R value) onRight) async=> onRight(_right);
+  Future<B> fold<B>(B Function(L value) onLeft, B Function(R value) onRight) async => onRight(_right);
 }
 
 final class Left<L, R> extends Folder<L, R> {
