@@ -4,7 +4,7 @@
 sealed class Folder<L, R> {
   const Folder._();
 
-  B fold<B>(B Function(L value) onLeft, B Function(R value) onRight);
+  Future<B> fold<B>(B Function(L value) onLeft, B Function(R value) onRight);
 
   bool get isLeft => this is Left<L, R>;
 
@@ -17,7 +17,7 @@ final class Right<L, R> extends Folder<L, R> {
   final R _right;
 
   @override
-  B fold<B>(B Function(L value) onLeft, B Function(R value) onRight) => onRight(_right);
+  Future<B> fold<B>(B Function(L value) onLeft, B Function(R value) onRight) async=> onRight(_right);
 }
 
 final class Left<L, R> extends Folder<L, R> {
@@ -26,5 +26,5 @@ final class Left<L, R> extends Folder<L, R> {
   final L _left;
 
   @override
-  B fold<B>(B Function(L value) onLeft, B Function(R value) onRight) => onLeft(_left);
+  Future<B> fold<B>(B Function(L value) onLeft, B Function(R value) onRight) async => onLeft(_left);
 }
